@@ -1,0 +1,43 @@
+body {
+    background-color: #a8d4a8; /* Light green background */
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center align text */
+}
+
+
+button {
+    margin-top: 20px;
+}
+
+textarea {
+   width: 100%;
+   height: 150px;
+   padding: 12px 20px;
+   box-sizing: border-box;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   background-color: #f8f8f8;
+   font-size: 16px;
+   resize: none;
+}
+
+/* Numbered lines */
+textarea::before {
+    content: '';
+    counter-reset: line;
+    display: block;
+    float: left;
+    width: 100px;
+    text-align: right;
+    line-height: inherit;
+    pointer-events: none;
+    color: #aaa;
+}
+
+textarea:focus::before {
+    color: #000;
+}
+
+textarea:focus {
+    outline: none;
+}

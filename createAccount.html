@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+<body style="background-color: #C8A2C8; text-align: center;">
+    <div style="margin-top: 100px; padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: inline-block;">
+        <h1>Create your Account here</h1>
+        <div style="text-align: center;">
+            <input type="email" id="email2" placeholder="Email" style="width: 200px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+            <input type="password" id="password2" placeholder="Password" style="width: 200px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+            <button type="submit" onclick="createAccount()" style="width: 200px; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background-color: #4CAF50; color: white;">Create Account</button><br>
+            <button onclick="goBack()" style="width: 200px; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background-color: #008CBA; color: white;">Back</button>
+        </div>
+    </div>
+
+    <script>
+        function createAccount() {
+            const email2 = document.getElementById('email2').value;
+    const password2 = document.getElementById('password2').value;
+
+    // Send a POST request to the server to create an account
+    fetch('/create-account', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email2, password2 })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Account created successfully!");
+            // Optionally, redirect to another page after successful account creation
+        } else {
+            alert("Error creating account. Please try again later.");
+        }
+    })
+    .catch(error => {
+        console.error('Error creating account:', error);
+        alert("An error occurred. Please try again later.");
+    });
+}
+
+
+        function goBack() {
+            window.location.href = 'Mainpage.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in Page</title>
+</head>
+<body style="background-color: #f0f8ff; text-align: center;">
+    <div style="margin-top: 100px; padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: inline-block; width: 300px;">
+        <h1>Log in to Check Code</h1>
+        <input type="text" id="email1" placeholder="Username" style="width: 200px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+        <input type="password" id="password1" placeholder="Password" style="width: 200px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+        <button type="submit" onclick="login()" style="width: 200px; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background-color: #4CAF50; color: white;">Log in</button><br>
+        <button onclick="location.href='createAccount.html'" style="width: 200px; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background-color: #008CBA; color: white;">New here? Create Account</button>
+    </div>
+
+    <script>
+    
+        async function login() {
+            const email1 = document.getElementById('email1').value;
+            const password1 = document.getElementById('password1').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email1, password1 })
+                });
+
+                if (response.ok) {
+                    // Redirect to check code page on successful login
+                    window.location.href = 'checkCode.html';
+                } else {
+                    // Display error message on failed login
+                    alert('Invalid username or password');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        }
+    </script>
+</body>
+</html>

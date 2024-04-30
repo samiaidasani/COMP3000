@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Code</title>
+</head>
+<body style="background-color: #E6FFE6; text-align: center;">
+    <div style="margin-top: 100px; padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: inline-block; width: 80%; max-width: 800px;">
+        <h1>Check Code</h1>
+        <div style="text-align: left;">
+            <textarea id="javaCode" placeholder="Insert Java code here" rows="20" style="width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; resize: none;"></textarea>
+        </div>
+        <button onclick="checkCode()" style="width: 95%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background-color: #4CAF50; color: white;">Check Code</button>
+        <div id="result"></div>
+    </div>
+    <script>
+    // Function to check Java code syntax
+    function checkCode() {
+            let code = document.getElementById('javaCode').value;
+            let lines = code.split('\n');
+            let errorLines = [];
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                // Skip empty lines and comments
+                if (line === '' || line.startsWith('//')) {
+                    continue;
+                }
+
+                // Skip lines ending with certain patterns
+                if (/[\{\(\[}]\s*$/.test(line) || /\b(?:if|else|while|for|do|try|catch|finally|switch|case|default|return|break|continue)\s*$/.test(line)) {
+                    continue;
+                }
+
+                // Skip lines containing certain patterns
+                if (/\b(?:class|interface|enum|void|public|private|protected|static|final|abstract)\b/.test(line)) {
+                    continue;
+                }
+
+                // Check for missing semicolon
+                if (!/;\s*$/.test(line)) {
+                    errorLines.push(i + 1); // Line numbers are 1-based
+                }
+            }
+
+            if (errorLines.length === 0) {
+                alert('Code is correct. No missing semicolons found.');
+            } else {
+                let errorMessage = 'Syntax error(s) found: Missing semicolon on line(s) ';
+                errorMessage += errorLines.join(', ');
+                alert(errorMessage);
+            }
+        }
+    </script>
+</body>
+</html>
